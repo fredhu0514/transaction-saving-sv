@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  production:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FLASK_ENV: production
+    volumes:
+      - ./transaction-saving-db/production:/app/transaction-saving-db
+    ports:
+      - "5511:5000"
+    working_dir: /app  # Set the working directory inside the container to /app
+
+  testing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FLASK_ENV: testing
+    volumes:
+      - ./transaction-saving-db/testing:/app/transaction-saving-db
+    ports:
+      - "5555:5000"
+    working_dir: /app  # Set the working directory inside the container to /app
+
+  development:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      FLASK_ENV: development
+    volumes:
+      - ./transaction-saving-db/development:/app/transaction-saving-db
+    ports:
+      - "5151:5000"
+    working_dir: /app  # Set the working directory inside the container to /app
